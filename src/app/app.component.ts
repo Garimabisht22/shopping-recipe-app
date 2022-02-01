@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'project';
+loadedFeature:string='recipe';
+
+ngOnInit(){
+  console.log("ngOnInit Inside AppComponent.ts");
+}
+
+onNavigate(feature:string){
+this.loadedFeature = feature;
+}
+
 }
