@@ -5,7 +5,8 @@ import { Recipe } from "./recipe.model";
 
 @Injectable()
 export class RecipeService{
-recipeSelectedEvent = new EventEmitter<Recipe>();
+recipeSelectedEvent = new EventEmitter<number>();
+
 
    private recipes:Recipe[] =[
         new Recipe(
@@ -21,7 +22,7 @@ recipeSelectedEvent = new EventEmitter<Recipe>();
          ),
         
          new Recipe("Avacado Grilled Cheese Sandwich",
-        "ADD avacoade and tomato to a standard grilled cheese makes it fit for serving to comapany.",
+        "ADD avacoade and tomato to a standard grilled cheese makes it fit for serving to company.",
         "https://www.acouplecooks.com/wp-content/uploads/2013/09/Avocado-Grilled-Cheese-002.jpg",
         [
             new Ingredient("Tomato",3),
@@ -40,4 +41,9 @@ constructor(private slService:ShoppingListService){
         this.slService.addIngredients(ingredients);
         this.slService.ingredientAdded.emit();
     }
+
+    getRecipe(id:number){
+        return this.recipes[id];
+    }
+
 }
