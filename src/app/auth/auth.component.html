@@ -1,21 +1,30 @@
-<div class="row">
-    <div class="col-xs-12 col-md-6 col-offset-3">
-        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" class="form-control" ngModel name="email" required email>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
-            </div>
-            <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid" style="margin-right: 10px;">
-                {{this.isLoginMode?'Login':'SignUp'}}
-            </button>
-            <div class="btn btn-success" (click)="onSwitchMode()">
-                Switch to {{!this.isLoginMode?'Login':'SignUp'}}
 
+<div class="container-fluid">
+    <div class="row"> 
+        <div class="col-xs-12 col-md-6">
+            <div class="alert alert-danger" *ngIf="error">
+                <p>{{error}}</p>
             </div>
-        </form>
+            <div *ngIf="isLoading"  style="text-align: center;">
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" ngModel name="email" required email>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
+                </div>
+                <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid" style="margin-right: 10px;">
+                    {{this.isLoginMode?'Login':'SignUp'}}
+                </button>
+                <div class="btn btn-success" (click)="onSwitchMode()">
+                    Switch to {{!this.isLoginMode?'Login':'SignUp'}}
+    
+                </div>
+            </form>
+        </div>
     </div>
 </div>
