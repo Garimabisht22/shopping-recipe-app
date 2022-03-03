@@ -1,3 +1,5 @@
+import { RecipeService } from './../recipe-book/recipe.service';
+import { DatastorageService } from './../shared/datastorage.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -7,10 +9,17 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataStorageService : DatastorageService, private recipeService : RecipeService) { }
 
   ngOnInit(): void {
     console.log("ngOnInit Inside HeaderComponent.ts");
   }
 
+  onSaveData(){
+this.dataStorageService.storeRecipes();
+  }
+
+  onFetchData(){
+    this.dataStorageService.fetchRecipes().subscribe();
+  }
 }

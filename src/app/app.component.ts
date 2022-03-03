@@ -13,8 +13,4 @@ ngOnInit(){
   console.log("ngOnInit Inside AppComponent.ts");
 }
 
-onNavigate(feature:string){
-this.loadedFeature = feature;
-}
-
 }

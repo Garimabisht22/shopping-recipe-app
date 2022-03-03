@@ -1,6 +1,31 @@
 <div class="row">
-<div class="col-xs-12">
-    <img [src]="ChoosenRecipe.imagePath" alt="{{ChoosenRecipe.name}}" class="img-responsive" style="max-height: 400px;">
+<div class="col-xs-8">
+    <img [src]="ChoosenRecipe.imagePath" alt="{{ChoosenRecipe.name}}" class="img-responsive" style="max-height: 450px;">
+</div>
+<div class="col-xs-4">
+    <div class="btn-group" appDropdown>
+        <button type="button" class="btn btn-primary dropdown-toggle">
+            Manage Recipe <span class="caret">
+            </span>
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+    <a (click)="onAddToShoppingList()" style="cursor: pointer;">
+        Add Ingredients to Shopping List
+    </a>
+            </li>
+            <li>
+                <a style="cursor: pointer;" (click)="onEditRecipe()">
+                    Edit Recipe
+                </a>
+            </li>
+            <li>
+                <a style="cursor: pointer;" (click)="onDeleteRecipe()">
+                    Delete Recipe
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 </div>
 <div class="row">
@@ -8,7 +33,7 @@
         <h1>{{ChoosenRecipe.name}}</h1>
     </div>
 </div>
-<div class="row">
+<!-- <div class="row"  style="margin-top: 10px;">
     <div class="col-xs-12">
 <div class="btn-group" appDropdown>
     <button type="button" class="btn btn-primary dropdown-toggle">
@@ -34,13 +59,13 @@
     </ul>
 </div>
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="col-xs-12">
       {{ChoosenRecipe.description}}
     </div>
 </div>
-<div class="row">
+<div class="row"  style="margin-top: 15px;">
     <div class="col-xs-12">
         <ul class="list-group">
             <li class="list-group-item"
