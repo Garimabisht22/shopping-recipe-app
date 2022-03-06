@@ -1,3 +1,4 @@
+import { AuthService } from './auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent {
   title = 'project';
-loadedFeature:string='recipe';
+// loadedFeature:string='recipe';
+constructor(private authService:AuthService){
 
+}
 ngOnInit(){
+this.authService.autoLogin();
   console.log("ngOnInit Inside AppComponent.ts");
+
 }
 
 }

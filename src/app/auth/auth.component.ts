@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './user.model';
 import { AuthService, AuthResponseData } from './auth.service';
 import { NgForm } from '@angular/forms';
@@ -19,7 +20,7 @@ export class AuthComponent {
 
 
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router : Router) {}
   isLoginMode = true;
   isLoading = false;
   error: any = null;
@@ -43,6 +44,7 @@ export class AuthComponent {
         this.error = null;
         console.log();
         this.isLoading = false;
+        this.router.navigate(['./recipes']);
       },
       error: (err) => {
         this.isLoading = false;
