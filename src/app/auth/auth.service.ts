@@ -1,6 +1,7 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
@@ -26,7 +27,7 @@ private tokenExpirationTimer :any;
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBafrUUVjHTJqqQ-xO6JJbwarjKUsYKOX8',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.fireBaseApiKey,
         {
           email: email,
           password: password,
@@ -46,7 +47,7 @@ private tokenExpirationTimer :any;
   }
   logIn(email: string, password: string) {
     return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBafrUUVjHTJqqQ-xO6JJbwarjKUsYKOX8',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.fireBaseApiKey,
       {
         email: email,
         password: password,
