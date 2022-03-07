@@ -1,9 +1,15 @@
+import { PlaceholderDirective } from './../shared/placeholder/placeholder.directive';
+import { AlertComponent } from './../shared/alert/alert.component';
 import { Router } from '@angular/router';
-import { User } from './user.model';
 import { AuthService, AuthResponseData } from './auth.service';
 import { NgForm } from '@angular/forms';
-import { Component } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ViewChild,
+  OnDestroy,
+} from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
 // enum mode {
 //   loginMode,
 //   signUpMode,
@@ -13,17 +19,28 @@ import { Observable, Subject } from 'rxjs';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent {
-
+export class AuthComponent implements OnDestroy {
   //   currentMode: mode = mode.loginMode;
   // ngForm!: FormsModule;
 
-
-
-  constructor(private authService: AuthService,private router : Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private companyFactoryResolver: ComponentFactoryResolver
+  ) {}
+  ngOnDestroy(): void {
+    if (this.closeSub) {
+      this.closeSub.unsubscribe();
+    }
+  }
   isLoginMode = true;
   isLoading = false;
   error: any = null;
+  private closeSub!: Subscription;
+  @ViewChild(PlaceholderDirective, {
+    static: false,
+  })
+  alertHost!: PlaceholderDirective;
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
@@ -48,11 +65,28 @@ export class AuthComponent {
       },
       error: (err) => {
         this.isLoading = false;
+        this.showErrorAlert(err.error.error.message);
         if (err.error.error) this.error = err.error.error.message;
         else this.error = 'Unknown Error';
       },
     });
     form.reset();
+  }
+  onHandleError() {
+    this.error = null;
+  }
+  private showErrorAlert(error: string) {
+    // const alertCmp = new AlertComponent();
+    //  const alertCmpFactory =  this.companyFactoryResolver.resolveComponentFactory(AlertComponent);
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef = hostViewContainerRef.createComponent(AlertComponent);
+    componentRef.instance.message = error;
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.closeSub.unsubscribe();
+      hostViewContainerRef.clear();
+    });
   }
   // private handleError(errorRes:HttpErrorResponse){
   // let errorMessage = 'An unknown error occurred';
