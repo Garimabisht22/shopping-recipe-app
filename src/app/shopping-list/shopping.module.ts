@@ -7,9 +7,8 @@ import { ShoppingListComponent } from "./shopping-list.component";
 
 @NgModule({
     declarations:[
-        ShoppingListComponent,
         ShoppingEditComponent,
-        
+        ShoppingListComponent
     ],
     imports:[
         ReactiveFormsModule,
